@@ -2,9 +2,42 @@
 
 class Bowling
 
-  def initialize(io)
+  def initialize(io, number_of_rounds)
     @score_card = []
     @io = io
+    @number_of_rounds = number_of_rounds
+  end
+
+  def run_game
+    counter = 0
+    @io.puts "Welcome to your bowling scorecard"
+    while counter < @number_of_rounds do
+      counter = counter + 1
+      @io.puts "Round #{counter}"
+      user_input_scores
+      array = @score_card
+      running_total = multi_array_sum(array)
+      @io.puts "Running total: #{running_total}"
+    end
+    @io.puts "Here is your scorecard:"
+    round = 0
+    @score_card.each do |element|
+      round = round + 1
+      first_roll = element[0]
+      second_roll = element[1]
+      @io.puts "Round #{round}: first - #{first_roll}, second - #{second_roll}"
+    end
+    @io.puts "FINAL SCORE: #{running_total}"
+  end
+
+  def multi_array_sum(arr)
+    sum = 0
+    arr.each do |row|
+      row.each do |column|
+        sum += column
+      end
+    end
+    return sum
   end
 
   def user_input_scores
@@ -25,6 +58,7 @@ class Bowling
         @io.puts "Invalid score: maximum 10 on first roll"
       end
     end
+    binding.irb
     # second roll
     while true do
       if first_roll == 10
@@ -45,10 +79,12 @@ class Bowling
         end
       end
     end
+    # binding.irb
     @io.puts "Frame score: #{frame_score.sum}"
+    @score_card << frame_score
   end
 
 
 end
 
-# Bowling.new(Kernel).user_input_scores
+# Bowling.new(Kernel, 3).run_game
