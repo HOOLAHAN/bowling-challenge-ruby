@@ -90,7 +90,7 @@ describe Bowling do
   end
 
   context 'when the user scores a spare' do
-    it 'adds the score of the first roll of the next frame to the previous frame score' do
+    it 'doubles the score of the first roll in the next frame' do
       io = double :io
       expect(io).to receive(:puts).with("Welcome to your bowling scorecard").ordered
       expect(io).to receive(:puts).with("Round 1").ordered
@@ -110,6 +110,85 @@ describe Bowling do
       expect(io).to receive(:puts).with("Round 1: first - 5, second - 5, bonus - 0, total - 10").ordered
       expect(io).to receive(:puts).with("Round 2: first - 3, second - 2, bonus - 3, total - 8").ordered # add (spare bonus) highlighter
       expect(io).to receive(:puts).with("FINAL SCORE: 18").ordered
+      game = Bowling.new(io, 2)
+      game.run_game
+    end
+  end
+
+  context 'when the user scores a strike' do
+    it 'doubles the score of the first and second roll in the next frame' do
+      io = double :io
+      expect(io).to receive(:puts).with("Welcome to your bowling scorecard").ordered
+      expect(io).to receive(:puts).with("Round 1").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("10").ordered
+      expect(io).to receive(:puts).with("STRIKE!").ordered
+      expect(io).to receive(:puts).with("Running total: 10").ordered
+      expect(io).to receive(:puts).with("Round 2").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("4").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("3").ordered
+      expect(io).to receive(:puts).with("Running total: 24").ordered
+      expect(io).to receive(:puts).with("Here is your scorecard:").ordered
+      expect(io).to receive(:puts).with("Round 1: first - 10, second - 0, bonus - 0, total - 10").ordered
+      expect(io).to receive(:puts).with("Round 2: first - 4, second - 3, bonus - 7, total - 14").ordered
+      expect(io).to receive(:puts).with("FINAL SCORE: 24").ordered
+      game = Bowling.new(io, 2)
+      game.run_game
+    end
+  end
+
+  context 'when the user bowls a gutter game' do
+    it 'the final score will be zero' do
+      io = double :io
+      expect(io).to receive(:puts).with("Welcome to your bowling scorecard").ordered
+      expect(io).to receive(:puts).with("Round 1").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("0").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("0").ordered
+      expect(io).to receive(:puts).with("Running total: 0").ordered
+      expect(io).to receive(:puts).with("Round 2").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("0").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("0").ordered
+      expect(io).to receive(:puts).with("Running total: 0").ordered
+      expect(io).to receive(:puts).with("Here is your scorecard:").ordered
+      expect(io).to receive(:puts).with("Round 1: first - 0, second - 0, bonus - 0, total - 0").ordered
+      expect(io).to receive(:puts).with("Round 2: first - 0, second - 0, bonus - 0, total - 0").ordered
+      expect(io).to receive(:puts).with("FINAL SCORE: 0").ordered
+      game = Bowling.new(io, 2)
+      game.run_game
+    end
+  end
+
+  context 'when the user bowls a strike in the final frame' do
+    it 'gives the user two extra rolls with bonus points' do
+      io = double :io
+      expect(io).to receive(:puts).with("Welcome to your bowling scorecard").ordered
+      expect(io).to receive(:puts).with("Round 1").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("3").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("4").ordered
+      expect(io).to receive(:puts).with("Running total: 7").ordered
+      expect(io).to receive(:puts).with("Round 2").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("10").ordered
+      expect(io).to receive(:puts).with("STRIKE!").ordered
+      expect(io).to receive(:puts).with("BONUS ROUND!").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("5").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("2").ordered
+      expect(io).to receive(:puts).with("Running total: 31").ordered
+      expect(io).to receive(:puts).with("Here is your scorecard:").ordered
+      expect(io).to receive(:puts).with("Round 1: first - 3, second - 4, bonus - 0, total - 7").ordered
+      expect(io).to receive(:puts).with("Round 2: first - 10, second - 0, bonus - 0, total - 10").ordered
+      expect(io).to receive(:puts).with("Round bonus!: first - 5, second - 2, bonus - 7, total - 14").ordered
+      expect(io).to receive(:puts).with("FINAL SCORE: 31").ordered
       game = Bowling.new(io, 2)
       game.run_game
     end

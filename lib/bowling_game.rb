@@ -16,12 +16,20 @@ class Bowling
       counter = counter + 1
       @io.puts "Round #{counter}"
       self.frame
-      if counter > 1 && (@score_card[counter - 2].sum == 10)
+      if counter == @number_of_rounds && (@score_card[counter - 1].first == 10)
+        @io.puts "BONUS ROUND!"
+        self.frame
+        bonus = @score_card[counter][0] + @score_card[counter][1]
+        @score_card[counter].append(bonus)
+      elsif counter > 1 && (@score_card[counter - 2].first == 10)
+        bonus = @score_card[counter - 1][0] + @score_card[counter - 1][1]
+        @score_card[counter - 1].append(bonus)
+      elsif counter > 1 && (@score_card[counter - 2].sum == 10)
         bonus = @score_card[counter - 1][0]
         @score_card[counter - 1].append(bonus)
       end
       @io.puts "Running total: #{@score_card.flatten.inject(:+)}"
-    end
+      end   
     self.score_card
   end
 
@@ -33,7 +41,11 @@ class Bowling
       first_roll = element[0]
       second_roll = element[1]
       bonus = element[2]
-      if element.length > 2
+      if round == (@number_of_rounds + 1)
+        round = 'bonus!'
+        # binding.irb
+        @io.puts "Round #{round}: first - #{first_roll}, second - #{second_roll}, bonus - #{bonus}, total - #{first_roll + second_roll + bonus}"
+      elsif element.length > 2
         @io.puts "Round #{round}: first - #{first_roll}, second - #{second_roll}, bonus - #{bonus}, total - #{first_roll + second_roll + bonus}"
       else
         @io.puts "Round #{round}: first - #{first_roll}, second - #{second_roll}, bonus - 0, total - #{first_roll + second_roll}"
@@ -85,11 +97,10 @@ class Bowling
         end
       end
     end
-    
     @frame_score << second_roll
     # @io.puts "Frame score: #{@frame_score.sum}"
   end
 
 end
 
-# Bowling.new(Kernel, 3).run_game
+# Bowling.new(Kernel, 2).run_game
