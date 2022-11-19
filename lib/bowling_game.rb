@@ -21,6 +21,11 @@ class Bowling
         self.frame
         bonus = @score_card[counter][0] + @score_card[counter][1]
         @score_card[counter].append(bonus)
+      elsif (counter == @number_of_rounds) && (@score_card[counter - 1].first != 10) && (@score_card[counter - 1].sum == 10)
+        @io.puts "BONUS ROUND!"
+        self.bonus_roll_spare
+        bonus = @score_card[counter][0]
+        @score_card[counter].append(bonus)
       elsif counter > 1 && (@score_card[counter - 2].first == 10)
         bonus = @score_card[counter - 1][0] + @score_card[counter - 1][1]
         @score_card[counter - 1].append(bonus)
@@ -99,6 +104,27 @@ class Bowling
     end
     @frame_score << second_roll
     # @io.puts "Frame score: #{@frame_score.sum}"
+  end
+
+  def bonus_roll_spare
+    @bonus_frame_score = []
+    while true do
+      @io.puts "Please enter first roll score:"
+      first_roll = @io.gets.chomp.to_i
+      if first_roll == 10
+        @io.puts "STRIKE!"
+        break
+      elsif
+        first_roll < 11 && first_roll >=0
+        break
+      elsif first_roll > 10
+        @io.puts "Invalid score: maximum 10 on first roll"
+      end
+    end
+    @bonus_frame_score << first_roll
+    second_roll = 0
+    @bonus_frame_score << second_roll
+    @score_card << @bonus_frame_score
   end
 
 end

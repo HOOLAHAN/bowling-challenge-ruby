@@ -194,4 +194,34 @@ describe Bowling do
     end
   end
 
+  context 'when the user bowls a spare in the final frame' do
+    it 'gives the user one extra roll with bonus points' do
+      io = double :io
+      expect(io).to receive(:puts).with("Welcome to your bowling scorecard").ordered
+      expect(io).to receive(:puts).with("Round 1").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("3").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("4").ordered
+      expect(io).to receive(:puts).with("Running total: 7").ordered
+      expect(io).to receive(:puts).with("Round 2").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("6").ordered
+      expect(io).to receive(:puts).with("Please enter second roll score:").ordered
+      expect(io).to receive(:gets).and_return("4").ordered
+      expect(io).to receive(:puts).with("SPARE!").ordered
+      expect(io).to receive(:puts).with("BONUS ROUND!").ordered
+      expect(io).to receive(:puts).with("Please enter first roll score:").ordered
+      expect(io).to receive(:gets).and_return("5").ordered
+      expect(io).to receive(:puts).with("Running total: 27").ordered
+      expect(io).to receive(:puts).with("Here is your scorecard:").ordered
+      expect(io).to receive(:puts).with("Round 1: first - 3, second - 4, bonus - 0, total - 7").ordered
+      expect(io).to receive(:puts).with("Round 2: first - 6, second - 4, bonus - 0, total - 10").ordered
+      expect(io).to receive(:puts).with("Round bonus!: first - 5, second - 0, bonus - 5, total - 10").ordered
+      expect(io).to receive(:puts).with("FINAL SCORE: 27").ordered
+      game = Bowling.new(io, 2)
+      game.run_game
+    end
+  end
+
 end
