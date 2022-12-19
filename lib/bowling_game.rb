@@ -11,10 +11,10 @@ class Bowling
 
   def run_game
     counter = 0
-    @io.puts "Welcome to your bowling scorecard"
+    @io.puts "\nWelcome to your bowling scorecard"
     while (counter < @number_of_rounds - 1) do
       counter = counter + 1
-      @io.puts "Round #{counter}"
+      @io.puts "----------------------------------------\nRound #{counter}\n--------"
       self.frame
       if counter > 1 && (@score_card[counter - 2].first == 10) && (@score_card[counter - 1].first == 10) # TWO STRIKES IN A ROW
         bonus = @score_card[counter - 1][0] + @score_card[counter - 2][0]
@@ -32,7 +32,7 @@ class Bowling
       @io.puts "Running total: #{@score_card.flatten.inject(:+)}"   
     end
     counter = counter + 1
-    @io.puts "Round #{counter}"
+    @io.puts "----------------------------------------\nRound #{counter}\n--------"
     self.final_frame
     if (counter > 1) && (@score_card[-2][0] == 10) # STRIKE IN PENULTIMATE FINAL FRAME
       bonus = @score_card[-1][0] + @score_card[-1][1]
@@ -49,7 +49,7 @@ class Bowling
   end
   
   def score_card
-    @io.puts "Here is your scorecard:"
+    @io.puts "----------------------------------------\nHere is your scorecard:"
     round = 0
     @score_card.each do |element|
       round = round + 1
@@ -177,4 +177,4 @@ end
 
 # TO RUN: 
 # =====================================================================================
-# Bowling.new(Kernel, 10).run_game
+Bowling.new(Kernel, 10).run_game

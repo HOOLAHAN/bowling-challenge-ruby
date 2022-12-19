@@ -11,7 +11,8 @@ bundle install
 rspec
 
 # Run the app
-# Un-comment line 180 & choose game length (default set at 10)
+* Un-comment line 180 & choose game length (default set at 10)
+
 ruby lib/bowling_game.rb
 # enter scores sequentially 
 ```
