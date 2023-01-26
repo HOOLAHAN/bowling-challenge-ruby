@@ -3,19 +3,22 @@ Bowling Challenge in Ruby
 
 ## Setup
 
-```bash
+
 # Install gems
+````
 bundle install
-
+````
 # Run the tests
+````
 rspec
-
+````
 # Run the app
-* Un-comment line 180 & choose game length (default set at 10)
-
+Un-comment line 180 & choose game length (default set at 10)
+````
 ruby lib/bowling_game.rb
+````
 # enter scores sequentially 
-```
+
 
 * Feel free to use google, your notes, books, etc. but work on your own
 * If you refer to the solution of another coach or student, please put a link to that in your README
