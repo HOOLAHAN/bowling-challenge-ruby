@@ -22,7 +22,9 @@ ruby lib/bowling_game.rb
 - Then enter scores sequentially
 - Example game run through:
 
-![example1](https://github.com/HOOLAHAN/bowling-challenge-ruby/blob/main/images/example-game-1.png)![example2](https://github.com/HOOLAHAN/bowling-challenge-ruby/blob/main/images/example-game-2.png)
+![example1](https://github.com/HOOLAHAN/bowling-challenge-ruby/blob/main/images/example-game-1.png)
+
+![example2](https://github.com/HOOLAHAN/bowling-challenge-ruby/blob/main/images/example-game-2.png)
 
 ## The Task
 
