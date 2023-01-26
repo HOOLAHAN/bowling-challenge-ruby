@@ -11,13 +11,19 @@ bundle install
 ````
 rspec
 ````
+
+![coverage](https://github.com/HOOLAHAN/bowling-challenge-ruby/tree/main/images/testing-coverage.png)
+
 ### Run the app
 - Un-comment line 180 & choose game length (default set at 10)
 ````
 ruby lib/bowling_game.rb
 ````
+- Then enter scores sequentially
+- Example game run through:
 
-- Then enter scores sequentially 
+![example1](https://github.com/HOOLAHAN/bowling-challenge-ruby/tree/main/images/example-game-1.png)
+![example2](https://github.com/HOOLAHAN/bowling-challenge-ruby/tree/main/images/example-game-2.png)
 
 ## The Task
 
